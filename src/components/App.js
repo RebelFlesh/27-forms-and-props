@@ -29,13 +29,11 @@ class App extends Component {
     let searchFormBoard = event.target.text.value;
     let searchFormLimit = event.target.number.value;
     let url = `https://www.reddit.com/r/${searchFormBoard}.json?limit=${searchFormLimit}`;
-    console.log(url)
     this.changeTopic(url);
   }
 
   async changeTopic(url) {
     const searchResultData = await this.fetchData(url);
-    console.log(searchResultData);
     this.setState({
       topics: searchResultData.data.children,
     });

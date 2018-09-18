@@ -10,6 +10,6 @@ export default class SearchForm extends React.Component {
           <input type='submit'/>
         </form>
       </div>
-    )
+    );
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import SearchForm from './Reddit/searchForm';
+import SearchResults from './Reddit/searchResult';
 
 import superagent from 'superagent';
 
@@ -51,6 +52,7 @@ class App extends Component {
     return (
       <div className="App">
         <SearchForm search={this.handleSubmit}/>
+        <SearchResults topicData={this.state.topics}/>
       </div>
     );
   }

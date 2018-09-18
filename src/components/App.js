@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+import SearchForm from './Reddit/searchForm';
 
 import superagent from 'superagent';
-
-// const redditAPI = 'https://www.reddit.com/r/${searchFormBoard}.json?limit=${searchFormLimit}'
 
 class App extends Component {
   constructor(props) {
@@ -12,6 +11,7 @@ class App extends Component {
     this.state = {
       topics: [],
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.changeTopic = this.changeTopic.bind(this);
     this.fetchData = this.fetchData.bind(this); 
   }
@@ -24,8 +24,19 @@ class App extends Component {
     console.log('__STATE__', this.state);
   }
 
-  async changeTopic(event){ 
-    // let url = event.target.value
+  handleSubmit(event){ 
+    event.preventDefault();
+    let searchFormBoard = event.target.text.value;
+    let searchFormLimit = event.target.number.value;
+    let url = `https://www.reddit.com/r/${searchFormBoard}.json?limit=${searchFormLimit}`;
+    this.changeTopic(url);
+  }
+
+  async changeTopic(url) {
+    const searchResultData = await this.fetchData(url);
+    this.setState({
+      topics: searchResultData.data.children,
+    });
   }
 
   fetchData(url){
@@ -39,7 +50,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        Hello
+        <SearchForm search={this.handleSubmit}/>
       </div>
     );
   }

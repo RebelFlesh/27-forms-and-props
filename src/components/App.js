@@ -32,24 +32,34 @@ class App extends Component {
   }
 
   async changeTopic(url) {
-    const searchResultData = await this.fetchData(url);
-    this.setState({
-      topics: searchResultData.data.children,
-    });
+    try {
+      const searchResultData = await this.fetchData(url);
+      this.setState({
+        topics: searchResultData.data.children,
+        error: null,
+      });
+    } catch (e) {
+      // Capturing in a variable can help with debugging
+      var message = e.message;
+      console.error(message);
+      this.setState({
+        topics: [],
+        error: message,
+      });
+    }
   }
 
   fetchData(url){
     return superagent.get(url)
       .then(result => {
         return result.body;
-      })
-      .catch(console.error);
+      });
   }
 
   render() {
     return (
       <div className="App">
-        <SearchForm search={this.handleSubmit}/>
+        <SearchForm search={this.handleSubmit} error={this.state.error} />
         <SearchResults topicData={this.state.topics}/>
       </div>
     );

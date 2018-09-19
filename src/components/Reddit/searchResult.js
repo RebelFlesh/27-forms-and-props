@@ -10,7 +10,7 @@ export default class SearchResults extends React.Component {
     });
     console.log(this.props.topicData);
     return (
-      this.props.topicData.length   !==0 ?
+      this.props.topicData.length !== 0 ?
         <div className='searchResults'>
           {
             this.props.topicData.map((topic, i) => 

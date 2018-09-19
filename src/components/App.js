@@ -13,8 +13,6 @@ class App extends Component {
       topics: [],
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.changeTopic = this.changeTopic.bind(this);
-    this.fetchData = this.fetchData.bind(this); 
   }
 
   componentDidUpdate(){
